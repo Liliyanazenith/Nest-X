@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>X'Nest</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#fff;--pn:#fff;--ink:#0a0a0a;--mut:#6b6b6b;--ln:#e4e4e4;--ac:#0a0a0a;--tn:#f1f1f1;--rd:#c62828;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--pn:#0a0a0a;--ink:#f5f5f5;--mut:#9a9a9a;--ln:#262626;--ac:#f5f5f5;--tn:#171717;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#000;--pn:#0a0a0a;--ink:#f5f5f5;--mut:#9a9a9a;--ln:#262626;--ac:#f5f5f5;--tn:#171717;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--pn);z-index:30}
+a{color:inherit}button,input,textarea,select{font:inherit;color:inherit}
+.shell{display:grid;grid-template-columns:230px minmax(0,680px);justify-content:center;gap:0 24px;min-height:100vh}
+.rail{padding:20px 8px;overflow:auto}@media(min-width:900px){.rail{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;height:100vh}}
+.logo{font-weight:800;font-size:1.7rem;padding:0 14px 14px;letter-spacing:-.04em}
+.ni{display:flex;gap:14px;align-items:center;padding:10px 14px;border-radius:999px;cursor:pointer;text-decoration:none}
+.ni:hover{background:var(--tn)}.ni.on{font-weight:600;color:var(--ac)}
+main{background:var(--pn);border-inline:1px solid var(--ln);min-height:100vh;padding-bottom:84px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--pn);border-bottom:1px solid var(--ln);padding:12px 16px;font-weight:800;font-size:1.15rem}
+.pad{padding:16px}.row{padding:14px 16px;border-bottom:1px solid var(--ln)}.mut{color:var(--mut);font-size:.88rem}
+.li{display:flex;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--ln);text-decoration:none;cursor:pointer}.li:hover{background:var(--tn)}
+.btn{border:0;background:var(--ac);color:var(--pn);padding:9px 18px;border-radius:999px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.btn.g{background:none;color:var(--ink);border:1px solid var(--ln)}.btn.d{background:var(--rd);color:#fff}.btn.s{padding:5px 12px;font-size:.85rem}
+.in{width:100%;border:1px solid var(--ln);background:var(--bg);padding:10px 12px;border-radius:10px;outline:0}
+.in:focus,.btn:focus-visible,.ni:focus-visible,.li:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+textarea.in{resize:vertical;min-height:76px}
+.av{border-radius:50%;object-fit:cover;display:grid;place-items:center;color:#fff;font-weight:700;flex:none}
+.flex{display:flex;gap:12px}.fl{flex:1;min-width:0}.sp{justify-content:space-between;align-items:center}
+.bn{height:150px;background:var(--tn);position:relative;overflow:hidden}.bn img,.bn video{width:100%;height:100%;object-fit:cover;display:block}
+.bn b{position:absolute;inset:auto 0 0 0;padding:14px 16px;color:#fff;background:linear-gradient(transparent,#000a);font-size:1.2rem;font-weight:800}
+.med{max-width:100%;max-height:480px;border-radius:12px;margin-top:8px;display:block}
+.msg{padding:6px 16px;border-left:3px solid transparent}.msg.me{border-color:var(--ac);background:var(--tn)}
+#ml{height:calc(100vh - 220px);height:calc(100dvh - 220px);overflow:auto;padding:8px 0}
+.tabs{display:flex;border-bottom:1px solid var(--ln)}.tabs a{flex:1;text-align:center;padding:12px;text-decoration:none}.tabs a.on{border-bottom:3px solid var(--ac);font-weight:600}
+.auth{min-height:100vh;display:grid;place-items:center;padding:20px}
+.auth form{width:min(400px,100%);background:var(--pn);border:1px solid var(--ln);border-radius:16px;padding:24px;display:grid;gap:12px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;z-index:60;max-width:90vw}
+.sw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.85rem}td,th{padding:8px;border-bottom:1px solid var(--ln);text-align:left;white-space:nowrap}
+.dev{font-size:.72rem;background:var(--ac);color:var(--pn);padding:1px 7px;border-radius:999px;margin-left:6px;font-weight:600}
+.bar{display:none}
+@media(max-width:899px){.shell{display:block}.rail{position:fixed;top:0;left:0;bottom:0;width:78%;max-width:300px;background:var(--pn);z-index:50;transform:translateX(-102%);transition:transform .2s;padding-top:calc(20px + env(safe-area-inset-top,0px))}.rail.open{transform:none}
+.bar{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--pn);border-top:1px solid var(--ln);padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px));justify-content:space-around;z-index:25}.bar a{padding:8px 16px;color:var(--mut)}.bar a.on{color:var(--ac)}
+main{border:0}.sc{position:fixed;inset:0;background:#0006;z-index:40}.sc[hidden]{display:none}}
+.pg{display:grid;gap:12px;padding:0 16px 16px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.pc{border:1px solid var(--ln);border-radius:16px;padding:18px;display:grid;gap:4px;align-content:start}.pc.best{border:2px solid var(--ink)}
+.pf{position:relative;z-index:2}
+.tabs{overflow-x:auto}.tabs a{white-space:nowrap;padding:12px 14px}
+.md{position:fixed;left:0;top:0;right:0;bottom:0;background:#0008;display:grid;place-items:center;padding:20px;z-index:70}
+.mb{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:18px;width:min(380px,100%)}
+.msg.an{background:var(--ink);color:var(--bg);border-color:var(--ink)}.msg.an .mut{color:inherit;opacity:.7}.msg.an .dev{background:var(--bg);color:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body><div id="app"></div>
+<script>
+const KEY='xnest.v2',DEV='websitescarlett@gmail.com',$=s=>document.querySelector(s);
+const P={home:'M3 11l9-8 9 8M5 10v10h14V10',user:'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 4-6 8-6s8 2 8 6',dl:'M12 3v12m-5-5l5 5 5-5M4 21h16',chat:'M4 5h16v11H9l-5 4z',dm:'M3 6h18v12H3zM3 7l9 7 9-7',mega:'M4 10v4h3l8 5V5L7 10zM18 9a4 4 0 010 6',grp:'M9 11a3 3 0 100-6 3 3 0 000 6zM3 20c0-3 3-5 6-5s6 2 6 5M17 11a3 3 0 100-6M18 15c2 .5 3 2 3 5',gear:'M12 9a3 3 0 100 6 3 3 0 000-6zM10.5 3h3l.5 2.4 1.7.7 2.1-1.3 2.1 2.1-1.3 2.1.7 1.7 2.4.5v3l-2.4.5-.7 1.7 1.3 2.1-2.1 2.1-2.1-1.3-1.7.7-.5 2.4h-3l-.5-2.4-1.7-.7-2.1 1.3-2.1-2.1 1.3-2.1-.7-1.7L3 13.5v-3l2.4-.5.7-1.7-1.3-2.1 2.1-2.1 2.1 1.3 1.7-.7z',sh:'M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z',img:'M4 5h16v14H4zM4 16l5-5 4 4 3-3 4 4',tr:'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13',send:'M3 11l18-8-8 18-2-8z',out:'M10 4H4v16h6M16 8l4 4-4 4M20 12H9',hrt:'M12 20s-8-5-8-11a4.5 4.5 0 018-2.5A4.5 4.5 0 0120 9c0 6-8 11-8 11z',menu:'M4 7h16M4 12h16M4 17h16',bdg:'M12 2l2.4 2 3.1-.2 1 3 2.5 1.8-1 3 1 3-2.5 1.8-1 3-3.1-.2L12 22l-2.4-2-3.1.2-1-3L3 15.4l1-3-1-3 2.5-1.8 1-3 3.1.2z'};
+const ic=(n,s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${P[n]}"/></svg>`;
+const BD=`<svg width="16" height="16" viewBox="0 0 24 24" style="vertical-align:-2px;margin-left:4px" role="img" aria-label="Terverifikasi"><path d="${P.bdg}" fill="#1d9bf0"/><path d="M8 12l3 3 5-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const WORDS=['anjing','bangsat','kontol','memek','ngentot','bajingan','goblok','tolol','babi','asu','fuck','shit','bitch','asshole'];
+const DS={theme:'auto',size:'n',autoplay:0,dm:'all'},PL=[['1 bulan',5000,1],['5 bulan',10000,5],['1 tahun',20000,12]];
+const ROUTES=['home','profil','chat','pesan','saluran','komunitas','unduh','beli','setelan','dev'];
+let D,S={r:'home',p:null,room:null,open:{},draft:'',att:null,au:'in',dt:'u'};
+const now=()=>Date.now(),uid=()=>Math.random().toString(36).slice(2,9)+now().toString(36);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const me=()=>D.users[D.cur],vf=u=>!!u&&(u.role==='dev'||u.verifiedUntil>now());
+const dmId=(a,b)=>'dm:'+[a,b].sort().join('~'),dt=t=>new Date(t).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+const cen=t=>{const w=[...WORDS,...(D.site.words||[])].filter(Boolean).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));return w.length?String(t).replace(new RegExp('\\b('+w.join('|')+')\\b','gi'),'****'):String(t)};
+const tx=t=>esc(cen(t||'')).replace(/\n/g,'<br>');
+const ago=t=>{const s=(now()-t)/1e3;return s<60?'baru saja':s<3600?Math.floor(s/60)+' mnt':s<86400?Math.floor(s/3600)+' jam':dt(t)};
+const hue=n=>{let h=0;for(const c of String(n))h=(h*31+c.charCodeAt(0))%360;return h};
+const av=(u,s=40)=>{u=u||{name:'?'};const b=s>60?';border:4px solid var(--pn)':'';return u.avatar?`<img class="av" style="width:${s}px;height:${s}px${b}" src="${u.avatar}" alt="">`:`<span class="av" style="width:${s}px;height:${s}px;font-size:${s/2.3}px;background:var(--ink);color:var(--bg)${b}">${esc((u.display||u.name||'?')[0]).toUpperCase()}</span>`};
+const nm=u=>u?`<b>${esc(u.display||u.name)}</b>${vf(u)?BD:''}${u.role==='dev'?'<span class="dev">Dev Web</span>':''}`:'<b>Akun dihapus</b>';
+let es=null,st=0;
+const save=()=>true;
+const SS=(()=>{try{return JSON.parse(localStorage.getItem('xnest.sess'))||{}}catch(e){return{}}})();SS.accs=SS.accs||{};
+const keep=()=>{try{localStorage.setItem('xnest.sess',JSON.stringify(SS))}catch(e){}};
+const tok=()=>SS.accs[SS.cur];
+D={users:{},posts:[],msgs:{},rooms:{},site:{text:'',banner:null,words:[]},cur:null,saved:[]};
+function drop(){delete SS.accs[SS.cur];SS.cur=null;keep();D.cur=null;if(es){es.close();es=null}}
+async function api(a,b,raw){const h={Authorization:'Bearer '+(tok()||'')};let body;if(raw){h['Content-Type']=raw.type;body=raw}else{h['Content-Type']='application/json';body=JSON.stringify(b||{})}
+ let r;try{r=await fetch('/api/'+a,{method:'POST',headers:h,body})}catch(e){throw new Error('Tidak bisa terhubung ke server.')}
+ const j=await r.json().catch(()=>({}));if(!r.ok){if(r.status===401&&tok())drop();throw new Error(j.e||'Terjadi kesalahan ('+r.status+').')}return j}
+async function sync(){if(!tok()){D.cur=null;return}const r=await fetch('/api/sync',{headers:{Authorization:'Bearer '+tok()}});
+ if(r.status===401||r.status===403){const j=await r.json().catch(()=>({}));drop();if(j.e)toast(j.e);return}
+ if(!r.ok)throw new Error('Server error ('+r.status+')');const j=await r.json();Object.assign(D,j,{cur:j.me,saved:Object.keys(SS.accs)});live()}
+function live(){if(es&&es.k===tok())return;if(es)es.close();es=new EventSource('/api/stream?t='+tok());es.k=tok();es.onmessage=()=>{clearTimeout(st);st=setTimeout(async()=>{try{await sync()}catch(e){return}onSync()},250)}}
+function onSync(){if(!me())return view();if(S.room&&$('#ml'))return updMsgs();const ty=/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{}).tagName);if(!ty&&['home','profil','pesan','saluran','komunitas','dev'].includes(S.r))view(1)}
+async function call(a,b,k=1){try{const j=await api(a,b);await sync();view(k);return j}catch(e){toast(e.message)}}
+async function sendTo(room,x){try{await api('send',{room,x});await sync();return 1}catch(e){toast(e.message)}}
+function toast(t){let e=$('#to');if(!e){e=document.createElement('div');e.id='to';e.className='toast';e.setAttribute('role','status');document.body.append(e)}e.textContent=t;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,3000)}
+const er=m=>{const e=$('#er');if(e)e.textContent=m};
+const ask=(t,b=[['Batal',0,' g'],['Hapus',1,' d']])=>new Promise(r=>{const d=document.createElement('div');d.className='md';d.innerHTML=`<div class="mb" role="dialog" aria-modal="true"><p style="margin:0 0 14px">${esc(t)}</p><div class="flex" style="flex-wrap:wrap;justify-content:flex-end">${b.map((x,i)=>`<button class="btn s${x[2]}" data-i="${i}">${esc(x[0])}</button>`).join('')}</div></div>`;d.onclick=e=>{const k=e.target.closest('[data-i]');if(k||e.target===d){d.remove();r(k?b[k.dataset.i][1]:0)}};document.body.append(d)});
+function theme(){const s=me()?.s||{},h=document.documentElement;s.theme&&s.theme!=='auto'?h.setAttribute('data-theme',s.theme):h.removeAttribute('data-theme');h.style.fontSize={s:'14px',l:'18px'}[s.size]||'16px'}
+const rd=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(f)});
+const pick=a=>new Promise(r=>{const i=document.createElement('input');i.type='file';i.accept=a;i.onchange=()=>r(i.files[0]||null);i.click()});
+const shrink=(f,m=1000)=>new Promise((ok,no)=>{const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{const k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(1,im.width*k);c.height=Math.max(1,im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c.toDataURL('image/jpeg',.72))};im.onerror=()=>no(new Error('x'));im.src=u});
+async function media(f,mb){if(!f)return null;try{if(f.type.startsWith('image/')){toast('Mengunggah...');return{type:'image',src:(await api('upload',null,await(await fetch(await shrink(f))).blob())).url}}if(f.type.startsWith('video/')){toast('Mengunggah video...');return{type:'video',src:(await api('upload',null,f)).url}}}catch(e){toast(e.message||'File tidak bisa diunggah.');return null}toast('Format tidak didukung.');return null}
+const bnr=(b,t)=>`<div class="bn">${b?(b.type==='video'?`<video src="${b.src}" autoplay muted loop playsinline></video>`:`<img src="${b.src}" alt="">`):''}${t?`<b>${esc(t)}</b>`:''}</div>`;
+
+function authView(){const a=S.au==='in';$('#app').innerHTML=`<div class="auth"><form data-f="${S.au}"><h1 style="margin:0;font-size:2rem;letter-spacing:-.04em">X'Nest</h1><div class="mut">${a?'Masuk untuk lanjut ke beranda.':'Buat akun baru. Gratis.'}</div>${a?'<input class="in" name="u" placeholder="Username atau email" autocomplete="username" required>':'<input class="in" name="u" placeholder="Username" autocomplete="username" required><input class="in" name="e" type="email" placeholder="Email" autocomplete="email" required>'}<input class="in" name="p" type="password" placeholder="Kata sandi" autocomplete="${a?'current-password':'new-password'}" required>${a?'':'<input class="in" name="p2" type="password" placeholder="Ulangi kata sandi" autocomplete="new-password" required>'}<div id="er" class="mut" style="color:var(--rd)" role="alert"></div><button class="btn" style="justify-content:center">${a?'Masuk':'Daftar'}</button><div class="mut">${a?'Belum punya akun?':'Sudah punya akun?'} <a href="#" data-a="au" style="color:var(--ac)">${a?'Daftar':'Masuk'}</a></div></form></div>`}
+function shell(){const u=me(),nav=[['home','home','Beranda'],['profil','user','Profil'],['chat','chat','Chat global'],['pesan','dm','Pesan'],['saluran','mega','Saluran'],['komunitas','grp','Komunitas'],['unduh','dl','Unduh TikTok'],['beli','bdg','Centang biru'],['setelan','gear','Pengaturan']];if(u.role==='dev')nav.push(['dev','sh','Menu dev']);
+ $('#app').innerHTML=`<div class="shell"><nav class="rail" id="rail"><div class="logo">X'Nest</div>${nav.map(n=>`<a href="#${n[0]}" class="ni${S.r===n[0]?' on':''}" data-a="go" data-v="${n[0]}">${ic(n[1])}<span>${n[2]}</span></a>`).join('')}<a href="#" class="ni" data-a="out">${ic('out')}<span>Keluar</span></a></nav><main><div class="top" id="tt"></div><div id="view"></div></main><div class="sc" id="sc" hidden data-a="menu"></div></div><nav class="bar">${[['home','home'],['chat','chat'],['unduh','dl'],['profil','user']].map(n=>`<a href="#${n[0]}" class="${S.r===n[0]?'on':''}" data-a="go" data-v="${n[0]}" aria-label="${n[0]}">${ic(n[1],24)}</a>`).join('')}<a href="#" data-a="menu" aria-label="Menu">${ic('menu',24)}</a></nav>`}
+
+function postH(p){const u=D.users[p.u],m=me(),own=m.id===p.u||m.role==='dev',lk=p.l.includes(m.id);
+ return `<article class="row"><div class="flex">${av(u)}<div class="fl"><div class="flex sp"><a href="#profil" data-a="prof" data-v="${p.u}" style="text-decoration:none">${nm(u)} <span class="mut">@${esc(u?u.name:'-')}</span></a><span class="mut">${ago(p.t)}</span></div><div style="margin-top:4px;word-break:break-word">${tx(p.x)}</div>${p.m?(p.m.type==='video'?`<video class="med" src="${p.m.src}" controls playsinline${m.s.autoplay?' muted autoplay loop':''}></video>`:`<img class="med" src="${p.m.src}" alt="">`):''}<div class="flex" style="margin-top:8px"><button class="btn g s" data-a="like" data-v="${p.id}" aria-pressed="${lk}" style="${lk?'color:var(--rd)':''}">${ic('hrt',16)} ${p.l.length}</button><button class="btn g s" data-a="cm" data-v="${p.id}">${ic('chat',16)} ${p.c.length}</button>${own?`<button class="btn g s" data-a="del" data-v="${p.id}" aria-label="Hapus">${ic('tr',16)}</button>`:''}</div>${S.open[p.id]?`<div style="margin-top:10px">${p.c.map(c=>`<div style="padding:6px 0">${nm(D.users[c.u])} <span class="mut">${ago(c.t)}</span><div>${tx(c.x)}</div></div>`).join('')}<div class="flex"><input class="in" id="ci-${p.id}" placeholder="Tulis komentar" maxlength="300"><button class="btn s" data-a="csend" data-v="${p.id}">Kirim</button></div></div>`:''}</div></div></article>`}
+function vHome(){const u=me(),b=D.site;return['Beranda',`${bnr(b.banner,b.text)}<div class="row"><div class="flex">${av(u)}<div class="fl"><textarea class="in" id="cmp" placeholder="Apa yang kamu pikirkan, ${esc(u.display||u.name)}?" maxlength="1000">${esc(S.draft)}</textarea>${S.att?`<div class="mut" style="margin-top:6px">${S.att.type==='video'?'Video':'Foto'} terlampir. <a href="#" data-a="unatt" style="color:var(--rd)">Hapus</a></div>`:''}<div class="flex sp" style="margin-top:8px"><button class="btn g s" data-a="attach">${ic('img',16)} Foto atau video</button><button class="btn" data-a="post">Posting</button></div></div></div></div>${D.posts.map(postH).join('')||'<div class="pad mut">Belum ada kiriman. Tulis yang pertama di atas.</div>'}`]}
+const edForm=u=>`<form class="row" data-f="ed" style="display:grid;gap:10px"><input class="in" name="d" value="${esc(u.display||'')}" maxlength="30" placeholder="Nama tampilan"><textarea class="in" name="b" maxlength="200" placeholder="Bio">${esc(u.bio||'')}</textarea><div class="flex" style="flex-wrap:wrap"><button type="button" class="btn g s" data-a="pav">Ganti foto profil</button><button type="button" class="btn g s" data-a="pbn">Ganti banner (foto atau video)</button>${u.banner?'<button type="button" class="btn g s" data-a="rbn">Hapus banner</button>':''}</div><button class="btn" style="justify-content:center">Simpan profil</button></form>`;
+function vProf(){const u=D.users[S.p||D.cur],m=me();if(!u)return['Profil','<div class="pad">Akun tidak ditemukan.</div>'];const own=u.id===m.id,ps=D.posts.filter(p=>p.u===u.id);
+ return['Profil',`${bnr(u.banner,'')}<div class="pad"><div class="flex sp pf" style="margin-top:-56px;align-items:flex-end">${av(u,84)}${own?'<button class="btn g s" data-a="ed">Edit profil</button>':`<button class="btn s" data-a="dm" data-v="${u.id}">Kirim pesan</button>`}</div><div style="margin-top:8px;font-size:1.2rem">${nm(u)}</div><div class="mut">@${esc(u.name)}, bergabung ${dt(u.joined)}</div><p style="margin:8px 0">${tx(u.bio)}</p><div class="mut">${ps.length} kiriman</div></div>${S.ed&&own?edForm(u):''}${ps.map(postH).join('')||'<div class="pad mut">Belum ada kiriman.</div>'}`]}
+
+const msgsH=id=>{const a=D.msgs[id]||[],dv=me().role==='dev';return a.length?a.map(x=>`<div class="msg${x.a?' an':x.u===D.cur?' me':''}">${x.a?'<div class="mut">Pengumuman</div>':''}${nm(D.users[x.u])} <span class="mut">${ago(x.t)}</span>${dv?`<a href="#" data-a="dmsg" data-v="${id}|${x.id}" class="mut" style="margin-left:8px">hapus</a>`:''}<div style="word-break:break-word">${tx(x.x)}</div></div>`).join(''):'<div class="pad mut">Belum ada pesan. Mulai percakapan.</div>'};
+const roomUI=(id,can,note)=>`<div id="ml">${msgsH(id)}</div>${can?`<form class="row flex" data-f="send"><input class="in" id="ci" placeholder="Tulis pesan" maxlength="500" autocomplete="off"><button class="btn" aria-label="Kirim">${ic('send',18)}</button></form>`:`<div class="row mut">${note}</div>`}`;
+const back='<a href="#" data-a="back" style="color:var(--ac)">Kembali</a>';
+const ulH=()=>{const m=me(),q=(S.q||'').toLowerCase(),last=i=>{const a=D.msgs[dmId(m.id,i)];return a&&a[a.length-1]};
+ return Object.values(D.users).filter(u=>u.id!==m.id&&!u.banned&&(u.name.includes(q)||(u.display||'').toLowerCase().includes(q))).sort((a,b)=>(last(b.id)?last(b.id).t:0)-(last(a.id)?last(a.id).t:0)).map(u=>{const l=last(u.id);return`<a href="#" class="li" data-a="dm" data-v="${u.id}">${av(u)}<div class="fl">${nm(u)}<div class="mut" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l?tx(l.x).replace(/<br>/g,' '):'@'+esc(u.name)}</div></div></a>`}).join('')||'<div class="pad mut">Pengguna tidak ditemukan.</div>'};
+function vDM(){const m=me();if(S.room&&S.room.startsWith('dm:')){const o=D.users[S.room.slice(3).split('~').find(x=>x!==m.id)],blk=o&&o.role!=='dev'&&o.s.dm==='verified'&&!vf(m);return[o?o.display||o.name:'Pesan',`<div class="row flex sp">${back}${nm(o)}</div>${roomUI(S.room,!!o&&!blk,blk?'Akun ini hanya menerima pesan dari akun bercentang biru.':'Akun tidak tersedia.')}`]}
+ return['Pesan',`<div class="row"><input class="in" id="sq" placeholder="Cari pengguna" value="${esc(S.q||'')}" autocomplete="off"></div><div id="ul">${ulH()}</div>`]}
+function vGrp(type){const m=me(),ch=type==='ch',N=ch?'Saluran':'Komunitas';
+ if(S.room&&D.rooms[S.room]){const r=D.rooms[S.room],mem=r.members.includes(m.id),can=ch?(r.owner===m.id||m.role==='dev'):mem;
+  return[r.name,`<div class="row">${back}<h2 style="margin:8px 0 2px">${esc(r.name)}</h2><div class="mut">${tx(r.desc)}</div><div class="mut">${r.members.length} ${ch?'pengikut':'anggota'}, dibuat oleh @${esc(D.users[r.owner]?D.users[r.owner].name:'-')}</div><div class="flex" style="margin-top:8px"><button class="btn s${mem?' g':''}" data-a="join" data-v="${r.id}">${mem?(ch?'Berhenti ikuti':'Keluar'):(ch?'Ikuti':'Gabung')}</button>${r.owner===m.id||m.role==='dev'?`<button class="btn d s" data-a="rdel" data-v="${r.id}">Hapus</button>`:''}</div></div>${roomUI(r.id,can,ch?'Hanya pemilik saluran yang bisa mengirim pesan.':'Gabung dulu untuk ikut mengobrol.')}`]}
+ const ls=Object.values(D.rooms).filter(r=>r.type===type);
+ return[N,`<form class="row" data-f="mk" style="display:grid;gap:8px"><input type="hidden" name="t" value="${type}"><input class="in" name="n" placeholder="Nama ${N.toLowerCase()} baru" maxlength="40" required><input class="in" name="d" placeholder="Deskripsi singkat" maxlength="120"><button class="btn" style="justify-content:center">Buat ${N.toLowerCase()}</button></form>${ls.map(r=>`<a href="#" class="li" data-a="room" data-v="${r.id}"><div class="fl"><b>${esc(r.name)}</b><div class="mut">${esc(r.desc||'')} (${r.members.length} ${ch?'pengikut':'anggota'})</div></div></a>`).join('')||`<div class="pad mut">Belum ada ${N.toLowerCase()}. Buat yang pertama.</div>`}`]}
+
+const abs=u=>String(u).startsWith('http')?u:'https://www.tikwm.com'+u;
+function vDl(){const r=S.dl;return['Unduh TikTok',`<form class="row flex" data-f="dl"><input class="in" name="u" placeholder="Tempel link TikTok" value="${esc(S.dlu||'')}" inputmode="url" required><button class="btn">Ambil</button></form>${S.dlb?'<div class="pad mut">Mengambil data...</div>':''}${S.dle?`<div class="pad" style="color:var(--rd)" role="alert">${esc(S.dle)}</div>`:''}${r?`<div class="row"><div class="flex">${r.cover?`<img src="${esc(abs(r.cover))}" alt="" style="width:96px;height:128px;object-fit:cover;border-radius:10px">`:''}<div class="fl"><b>@${esc(r.author?r.author.unique_id:'')}</b><p style="margin:4px 0;word-break:break-word">${esc(r.title||'')}</p><div class="mut">${r.play_count??0} tayangan, ${r.digg_count??0} suka</div></div></div><div class="flex" style="flex-wrap:wrap;margin-top:12px">${[['Tanpa watermark',r.play],['HD',r.hdplay],['Dengan watermark',r.wmplay],['Audio MP3',r.music]].filter(x=>x[1]).map(x=>`<a class="btn s" target="_blank" rel="noopener" href="${esc(abs(x[1]))}" download>${x[0]}</a>`).join('')}${(r.images||[]).map((s,i)=>`<a class="btn g s" target="_blank" rel="noopener" href="${esc(s)}" download>Foto ${i+1}</a>`).join('')}</div></div>`:'<div class="pad mut">Unduh video TikTok tanpa watermark, versi HD, atau audio lewat tikwm.com.</div>'}`]}
+function vBuy(){const m=me();return['Centang biru',`<div class="pad"><div style="font-size:1.3rem;font-weight:800">Verifikasi akunmu</div><p class="mut">Centang biru tampil di samping namamu di kiriman, chat, dan profil. Tombol Beli membuka chat dengan developer (${DEV}) untuk konfirmasi pembayaran.</p>${vf(m)&&m.role!=='dev'?`<p>Centangmu aktif sampai <b>${dt(m.verifiedUntil)}</b>.</p>`:''}</div><div class="pg">${PL.map((p,i)=>`<div class="pc${i==2?' best':''}">${i==2?'<span class="mut">Paling hemat</span>':''}<b>${p[0]}</b><div style="font-size:1.6rem;font-weight:800">Rp${p[1].toLocaleString('id-ID')}</div><div class="mut">Rp${Math.round(p[1]/p[2]).toLocaleString('id-ID')} per bulan</div><button class="btn" style="justify-content:center;margin-top:10px" data-a="buy" data-v="${i}">Beli</button></div>`).join('')}</div>`]}
+function vSet(){const m=me(),s=m.s,sel=(k,o)=>`<select class="in" style="width:auto" data-s="${k}">${o.map(x=>`<option value="${x[0]}"${s[k]==x[0]?' selected':''}>${x[1]}</option>`).join('')}</select>`;
+ return['Pengaturan',`<div class="row"><b>Tampilan</b></div><div class="row flex sp"><span>Tema</span>${sel('theme',[['auto','Otomatis'],['light','Terang'],['dark','Gelap']])}</div><div class="row flex sp"><span>Ukuran teks</span>${sel('size',[['s','Kecil'],['n','Normal'],['l','Besar']])}</div><label class="row flex sp"><span>Putar otomatis video di beranda</span><input type="checkbox" data-s="autoplay"${s.autoplay?' checked':''}></label><div class="row"><b>Privasi</b></div><div class="row flex sp"><span>Yang boleh mengirim pesan</span>${m.role==='dev'?'<span class="mut">Semua orang</span>':sel('dm',[['all','Semua orang'],['verified','Akun bercentang biru']])}</div><div class="row"><b>Ganti sandi</b></div><form class="row" data-f="pw" style="display:grid;gap:8px"><input class="in" type="password" name="o" placeholder="Sandi lama" autocomplete="current-password" required><input class="in" type="password" name="n" placeholder="Sandi baru (min. 6 karakter)" autocomplete="new-password" required><input class="in" type="password" name="n2" placeholder="Ulangi sandi baru" autocomplete="new-password" required><div id="er" class="mut" style="color:var(--rd)" role="alert"></div><button class="btn" style="justify-content:center">Ganti sandi</button></form><div class="row"><b>Ganti akun</b><div class="mut">Akun yang pernah masuk di perangkat ini.</div>${D.saved.filter(i=>D.users[i]).map(i=>`<div class="flex sp" style="margin-top:8px"><span class="flex" style="align-items:center">${av(D.users[i],30)}<span>@${esc(D.users[i].name)}</span></span>${i===m.id?'<span class="mut">Aktif</span>':`<button class="btn g s" data-a="sa" data-v="${i}">Pindah</button>`}</div>`).join('')}<div class="flex" style="margin-top:10px"><button class="btn g s" data-a="addacc">Tambah akun</button><button class="btn g s" data-a="out">Keluar</button></div></div><div class="row"><b>Data</b><div class="flex" style="margin-top:8px"><button class="btn g s" data-a="exp">Lihat data saya</button><button class="btn d s" data-a="delacc">Hapus akun</button></div>${S.exp?`<textarea class="in" readonly rows="8" style="margin-top:8px">${esc(S.exp)}</textarea>`:''}</div>`]}
+function vDev(){const t=S.dt,us=Object.values(D.users),tabs=`<div class="tabs">${[['u','Pengguna'],['k','Filter kata'],['a','Pengumuman'],['s','Situs'],['r','Ringkasan']].map(x=>`<a href="#" class="${t===x[0]?'on':''}" data-a="dt" data-v="${x[0]}">${x[1]}</a>`).join('')}</div>`;let b='';
+ if(t==='u')b=`<div class="sw"><table><tr><th>Nama</th><th>Username</th><th>Email</th><th>Bergabung</th><th>Centang</th><th>Pelanggaran</th><th>Status</th><th>Aksi</th></tr>${us.map(u=>`<tr><td>${esc(u.display||'')}</td><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td>${dt(u.joined)}</td><td>${u.role==='dev'?'Dev':u.verifiedUntil>now()?dt(u.verifiedUntil):'-'}</td><td>${u.viol||0}</td><td>${u.pending?'Belum daftar':u.banned?'Diblokir':'Aktif'}</td><td>${u.role==='dev'?'':`<button class="btn g s" data-a="ban" data-v="${u.id}">${u.banned?'Buka blokir':'Blokir'}</button> <button class="btn g s" data-a="vfy" data-v="${u.id}">Atur centang</button> <button class="btn d s" data-a="rm" data-v="${u.id}">Hapus</button>`}</td></tr>`).join('')}</table></div>`;
+ if(t==='s')b=`<form class="row" data-f="site" style="display:grid;gap:10px"><label class="mut" for="st">Teks banner website</label><input class="in" id="st" name="t" value="${esc(D.site.text)}" maxlength="80"><label class="mut" for="sw">Kata tambahan yang disensor (pisahkan dengan koma)</label><textarea class="in" id="sw" name="w">${esc((D.site.words||[]).join(', '))}</textarea><div class="flex" style="flex-wrap:wrap"><button type="button" class="btn g s" data-a="sbn">Ganti banner (foto atau video)</button>${D.site.banner?'<button type="button" class="btn g s" data-a="rsb">Hapus banner</button>':''}</div><button class="btn" style="justify-content:center">Simpan situs</button></form>`;
+ if(t==='r')b=`<div class="pad">${[['Pengguna',us.filter(u=>!u.pending).length],['Kiriman',D.posts.length],['Pesan',Object.values(D.msgs).reduce((a,x)=>a+x.length,0)],['Saluran',Object.values(D.rooms).filter(r=>r.type==='ch').length],['Komunitas',Object.values(D.rooms).filter(r=>r.type==='com').length],['Diblokir',us.filter(u=>u.banned).length],['Bercentang',us.filter(vf).length]].map(x=>`<div class="flex sp" style="padding:8px 0;border-bottom:1px solid var(--ln)"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')}</div>`;
+ if(t==='k')b=`<form class="row flex" data-f="wd"><input class="in" name="w" placeholder="Kata toxic baru" maxlength="30" autocapitalize="none" required><button class="btn">Tambah</button></form><div class="row"><b>Filter tambahan</b><div class="flex" style="flex-wrap:wrap;margin-top:8px">${(D.site.words||[]).map(w=>`<button class="btn g s" data-a="wr" data-v="${esc(w)}">${esc(w)} &times;</button>`).join('')||'<span class="mut">Belum ada kata tambahan.</span>'}</div></div><div class="row mut">Filter bawaan: ${WORDS.join(', ')}. Kata yang cocok diganti ****.</div>`;
+ if(t==='a')b=`<form class="row" data-f="an" style="display:grid;gap:10px"><label class="mut" for="at">Pengumuman untuk Chat Global</label><textarea class="in" id="at" name="x" maxlength="500" required></textarea><button class="btn" style="justify-content:center">Kirim ke Chat Global</button></form>`;
+ return['Menu dev',tabs+b]}
+
+function view(keep){const y=scrollY;let u=me();if(u&&u.banned){D.cur=null;save();u=null;toast('Akun kamu diblokir oleh developer.')}if(!u){theme();return authView()}
+ const R={home:vHome,profil:vProf,chat:()=>{S.room='global';return['Chat global',roomUI('global',1)]},pesan:vDM,saluran:()=>vGrp('ch'),komunitas:()=>vGrp('com'),unduh:vDl,beli:vBuy,setelan:vSet,dev:vDev};
+ if(!R[S.r]||(S.r==='dev'&&u.role!=='dev'))S.r='home';const[t,h]=R[S.r]();shell();$('#tt').textContent=t;$('#view').innerHTML=h;theme();scrollTo(0,keep?y:0);const l=$('#ml');if(l)l.scrollTop=l.scrollHeight}
+function updMsgs(){const l=$('#ml');if(l){l.innerHTML=msgsH(S.room);l.scrollTop=l.scrollHeight}}
+const go=(r,room=null,p=null)=>{S.r=r;S.room=room;S.p=p;location.hash=r;view()};
+
+const act={
+ go:v=>go(v,null,v==='profil'?D.cur:null),prof:v=>go('profil',null,v),
+ menu(){const r=$('#rail');r.classList.toggle('open');$('#sc').hidden=!r.classList.contains('open')},
+ au(){S.au=S.au==='in'?'up':'in';authView()},
+ async out(){try{await api('logout')}catch(e){}drop();S.r='home';S.au='in';view()},
+ addacc(){SS.cur=null;keep();D.cur=null;if(es){es.close();es=null}S.au='in';view()},
+ async sa(v){SS.cur=v;keep();try{await sync();go('home')}catch(e){toast(e.message)}},
+ async attach(){S.draft=$('#cmp').value;const m=await media(await pick('image/*,video/*'),30);if(m){S.att=m;view(1)}},
+ unatt(){S.att=null;view(1)},
+ async post(){const x=$('#cmp').value.trim(),m=S.att;if(!x&&!m)return toast('Tulis sesuatu atau lampirkan media.');S.draft='';S.att=null;if(!await call('post',{x,m})){S.draft=x;S.att=m;view(1)}},
+ like:id=>call('like',{id}),
+ cm(id){S.open[id]=!S.open[id];view(1)},
+ csend(id){const x=$('#ci-'+id).value.trim();if(x)call('cmt',{id,x})},
+ async del(id){if(await ask('Hapus kiriman ini?'))call('delpost',{id})},
+ ed(){S.ed=!S.ed;view(1)},
+ async pav(){const m=await media(await pick('image/*'),30);if(m)call('av',{url:m.src})},
+ async pbn(){const m=await media(await pick('image/*,video/*'),30);if(m)call('bn',{m})},
+ rbn:()=>call('bn',{m:null}),
+ dm:v=>go('pesan',dmId(D.cur,v)),room(v){S.room=v;view()},back(){S.room=null;view()},
+ join:id=>call('join',{id}),
+ async rdel(id){if(await ask('Hapus ini beserta semua pesannya?')){S.room=null;call('rdel',{id},0)}},
+ async dmsg(v){const[r,id]=v.split('|');try{await api('dmsg',{r,id});await sync();updMsgs()}catch(e){toast(e.message)}},
+ async buy(v){const m=me();if(m.role==='dev')return toast('Kamu developer, centang sudah aktif.');const p=PL[v],id=dmId(m.id,'dev');if(await sendTo(id,`Halo admin, saya @${m.name} ingin beli centang biru paket ${p[0]} (Rp${p[1].toLocaleString('id-ID')}). Mohon info cara pembayarannya.`))go('pesan',id)},
+ dt(v){S.dt=v;view(1)},
+ ban:id=>call('ban',{id}),
+ async vfy(id){const u=D.users[id];if(!u)return;const a=u.verifiedUntil>now(),n=await ask(a?`Centang @${u.name} aktif sampai ${dt(u.verifiedUntil)}.`:`Beri centang biru untuk @${u.name}?`,[['Batal',0,' g'],...(a?[['Cabut',-1,' d']]:[]),['1 bulan',1,''],['5 bulan',5,''],['1 tahun',12,'']]);if(n)call('vfy',{id,n})},
+ async rm(id){if(await ask('Hapus akun ini secara permanen beserta kirimannya?'))call('rm',{id})},
+ async sbn(){const m=await media(await pick('image/*,video/*'),30);if(m)call('sbn',{m})},
+ rsb:()=>call('sbn',{m:null}),
+ wr:v=>call('wr',{w:v}),
+ exp(){const m=me();S.exp=JSON.stringify({akun:{username:m.name,email:m.email,nama:m.display,bio:m.bio,bergabung:new Date(m.joined).toISOString()},kiriman:D.posts.filter(p=>p.u===m.id).map(p=>({teks:p.x,waktu:new Date(p.t).toISOString(),media:p.m?p.m.type:null}))},null,1);view(1)},
+ async delacc(){const m=me();if(m.role==='dev')return toast('Akun developer tidak bisa dihapus.');if(await ask('Hapus akunmu secara permanen?')){try{await api('delacc')}catch(e){return toast(e.message)}drop();view()}}
+};
+const F={
+ async in(f){try{const j=await api('login',{u:f.u.value,p:f.p.value});SS.accs[j.id]=j.token;SS.cur=j.id;keep();await sync();go('home')}catch(e){er(e.message)}},
+ async up(f){if(f.p.value!==f.p2.value)return er('Kata sandi tidak sama.');try{const j=await api('reg',{u:f.u.value,e:f.e.value,p:f.p.value});SS.accs[j.id]=j.token;SS.cur=j.id;keep();await sync();go('home')}catch(e){er(e.message)}},
+ ed(f){S.ed=0;call('prof',{d:f.d.value,b:f.b.value})},
+ async send(){const i=$('#ci'),x=i.value.trim();if(!x)return;i.value='';if(await sendTo(S.room,x))updMsgs();else i.value=x},
+ async mk(f){const j=await call('mk',{t:f.t.value,n:f.n.value,d:f.d.value},0);if(j&&j.id){S.room=j.id;view()}},
+ async dl(f){S.dlu=f.u.value.trim();S.dle='';S.dl=null;S.dlb=1;view(1);try{const j=await(await fetch('https://www.tikwm.com/api/?hd=1&url='+encodeURIComponent(S.dlu))).json();if(j.code!==0||!j.data)throw new Error(j.msg||'Video tidak ditemukan.');S.dl=j.data}catch(e){S.dle='Gagal mengambil video: '+(e instanceof TypeError?'tidak bisa terhubung ke tikwm.com. Cek koneksi, atau buka dari situs yang sudah di-hosting.':e.message)}S.dlb=0;view(1)},
+ async pw(f){try{await api('pw',{o:f.o.value,n:f.n.value,n2:f.n2.value});f.reset();er('');toast('Sandi berhasil diganti.')}catch(e){er(e.message)}},
+ async site(f){if(await call('site',{t:f.t.value,w:f.w.value}))toast('Pengaturan situs disimpan.')},
+ wd:f=>call('wd',{w:f.w.value}),
+ async an(f){if(await call('an',{x:f.x.value}))toast('Pengumuman terkirim ke Chat Global.')}
+};
+
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t)return;if(t.tagName==='A')e.preventDefault();const f=act[t.dataset.a];if(f)f(t.dataset.v,t)});
+document.addEventListener('submit',e=>{const f=e.target.closest('[data-f]');if(!f)return;e.preventDefault();const h=F[f.dataset.f];if(h)h(f)});
+document.addEventListener('input',e=>{const t=e.target;if(t.id==='cmp')S.draft=t.value;if(t.id==='sq'){S.q=t.value;$('#ul').innerHTML=ulH()}});
+document.addEventListener('change',e=>{const t=e.target,k=t.dataset.s;if(!k)return;const v=t.type==='checkbox'?(t.checked?1:0):t.value;me().s[k]=v;theme();api('set',{k,v}).catch(()=>{})});
+addEventListener('hashchange',()=>{const r=location.hash.slice(1);if(me()&&ROUTES.includes(r)&&r!==S.r){S.r=r;S.room=null;S.p=r==='profil'?D.cur:null;view()}});
+(async()=>{const r=location.hash.slice(1);if(ROUTES.includes(r))S.r=r;try{const p=await fetch('/api/ping');if(!p.ok)throw 0;await sync()}catch(e){D.err=1}S.p=D.cur;view();if(D.err)er('Server belum terhubung. Jalankan "node server.js" lalu buka alamat servernya, bukan file index.html langsung.')})();
+</script></body></html>
